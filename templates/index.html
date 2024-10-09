@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Візуалізація Моделі</title>
+</head>
+<body>
+    <h1>Візуалізація Моделі</h1>
+    <form method="POST">
+        <label for="a">Параметр a:</label>
+        <input type="text" id="a" name="a" value="{{ request.form.a if request.form.a else 3 }}" required>
+        <br><br>
+        <label for="b">Параметр b:</label>
+        <input type="text" id="b" name="b" value="{{ request.form.b if request.form.b else 2 }}" required>
+        <br><br>
+        <label for="N_0">Початкове значення (N_0):</label>
+        <input type="text" id="N_0" name="N_0" value="{{ request.form.N_0 if request.form.N_0 else 1.5 }}" required>
+        <br><br>
+        <label for="n">Кількість ітерацій (n):</label>
+        <input type="text" id="n" name="n" value="{{ request.form.n if request.form.n else 20 }}" required>
+        <br><br>
+        <button type="submit">Надіслати</button>
+    </form>
+
+
+    {% if graph %}
+        <h2>Графік:</h2>
+        <img src="{{ graph }}" alt="Графік">
+    {% endif %}
+
+    {% if stability_info %}
+        <h2>Стаціонарні Точки:</h2>
+        <ul>
+            {% for point, is_stable in stability_info %}
+                <li>Точка: {{ point }} - {% if is_stable %} Стійка {% else %} Нестійка {% endif %}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
